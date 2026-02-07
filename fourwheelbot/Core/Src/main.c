@@ -30,8 +30,8 @@
 #define DEVICE_ADDR (0x27<<1)
 uint8_t command1[]={0x30,0x30,0x30,0x20,'\0'};
 uint8_t command[]={0x28,0x0E,0x01,0x07,0x8F,'\0'};
-uint8_t lcd_data[] ="RTOS-Program";
-uint8_t lcd_data1[]="EGS-PILLAY";
+uint8_t lcd_data[] ="Write 16 letters of your favourite song1";
+uint8_t lcd_data1[]="Write 16 letters of your favourite song2";
 int lcd_button_flag=0;
 /* USER CODE END PTD */
 
@@ -379,8 +379,9 @@ void motor_task(void *parameter){
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, 1);
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 0);
-		TIM3->CCR2=700;
-		TIM3->CCR4=700;
+		//Load your motorA pwm value to 70%
+		//Load your motorB pwm value to 70%
+
 		vTaskDelay(500);
 	}
 }
@@ -392,7 +393,7 @@ void lcd_task(void *parameter){
 		while(lcd_button_flag==0){
 			lcd_write_command(0x01);
 			lcd_write_command(0x8F);
-			for(i=0;i<12&&lcd_button_flag==0;i++){
+			for(i=0;i<16&&lcd_button_flag==0;i++){
 				lcd_write_data(lcd_data[i]);
 				vTaskDelay(200);
 			}
@@ -400,7 +401,7 @@ void lcd_task(void *parameter){
 		while(lcd_button_flag==1){
 			lcd_write_command(0x01);
 			lcd_write_command(0x8F);
-			for(i=0;i<10&&lcd_button_flag==1;i++){
+			for(i=0;i<16&&lcd_button_flag==1;i++){
 				lcd_write_data(lcd_data1[i]);
 				vTaskDelay(200);
 			}
@@ -425,21 +426,19 @@ void emergency_task(void *parameter){
 	while(1){
 		xTaskNotifyWait(0,0,NULL,portMAX_DELAY);
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 1);
-//		vTaskSuspend(lcd_handle);
-//		vTaskSuspend(lcdbutton_handle);
-//		vTaskSuspend(motor_handle);
+
 		HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_2);
 		HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_4);
-		while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_5)==0){
+		//Here write  the code to check whether IR sensor is still low
+		//Write your while condition
+		{
 			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
 			HAL_Delay(100);
-			//vTaskDelay(100);
+
 		}
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0);
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0);
-//		vTaskResume(lcd_handle);
-//		vTaskResume(lcdbutton_handle);
-//		vTaskResume(motor_handle);
+
 		HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 		HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
 
