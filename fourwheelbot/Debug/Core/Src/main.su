@@ -8,10 +8,10 @@
 ../Core/Src/main.c:388:6:lcd_task	24	static
 ../Core/Src/main.c:412:6:lcdbutton_task	16	static
 ../Core/Src/main.c:424:6:emergency_task	24	static
-../Core/Src/main.c:448:6:EXTI9_5_IRQHandler	24	static,ignoring_inline_asm
-../Core/Src/main.c:465:6:lcd_init	16	static
-../Core/Src/main.c:482:6:lcd_write_command1	32	static
-../Core/Src/main.c:496:6:lcd_write_command	32	static
-../Core/Src/main.c:522:6:lcd_write_data	32	static
-../Core/Src/main.c:559:6:HAL_TIM_PeriodElapsedCallback	16	static
-../Core/Src/main.c:577:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:449:6:EXTI9_5_IRQHandler	24	static,ignoring_inline_asm
+../Core/Src/main.c:466:6:lcd_init	16	static
+../Core/Src/main.c:483:6:lcd_write_command1	32	static
+../Core/Src/main.c:497:6:lcd_write_command	32	static
+../Core/Src/main.c:523:6:lcd_write_data	32	static
+../Core/Src/main.c:560:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:578:6:Error_Handler	4	static,ignoring_inline_asm

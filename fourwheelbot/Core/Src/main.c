@@ -425,20 +425,21 @@ void emergency_task(void *parameter){
 	while(1){
 		xTaskNotifyWait(0,0,NULL,portMAX_DELAY);
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 1);
-		vTaskSuspend(lcd_handle);
-		vTaskSuspend(lcdbutton_handle);
-		vTaskSuspend(motor_handle);
+//		vTaskSuspend(lcd_handle);
+//		vTaskSuspend(lcdbutton_handle);
+//		vTaskSuspend(motor_handle);
 		HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_2);
 		HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_4);
 		while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_5)==0){
 			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1);
-			vTaskDelay(100);
+			HAL_Delay(100);
+			//vTaskDelay(100);
 		}
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0);
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0);
-		vTaskResume(lcd_handle);
-		vTaskResume(lcdbutton_handle);
-		vTaskResume(motor_handle);
+//		vTaskResume(lcd_handle);
+//		vTaskResume(lcdbutton_handle);
+//		vTaskResume(motor_handle);
 		HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 		HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
 
